@@ -133,6 +133,19 @@ body {
         filter: alpha(opacity=0);
       }
     }
+    .form__submit__button {
+      width: 200px;
+      border: 1px solid $darkBlue;
+      background-color: $light;
+      color: $darkBlue;
+      font-size: 22px;
+      border-radius: 5px;
+      &:hover {
+        background-color: $light-gray;
+        color: $darkBlue;
+        transition: all 0.3s ease-in-out;
+      }
+    }
   }
 }
 

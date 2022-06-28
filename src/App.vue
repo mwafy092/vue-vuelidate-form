@@ -89,6 +89,7 @@
             type="radio"
             name="gender"
             id="gender1"
+            value="male"
             v-model="formData.gender"
           />
           <label class="form-check-label" for="gender1"> ذكر </label>
@@ -99,6 +100,7 @@
             type="radio"
             name="gender"
             id="gender2"
+            value="female"
             v-model="formData.gender"
           />
           <label class="form-check-label" for="gender2"> انثي </label>
@@ -143,7 +145,7 @@
               type="text"
               class="form-control"
               id="country"
-              v-model="formData.country[item]"
+              v-model="formData.country[index]"
             />
           </label>
           <label for="city" class="form-label">
@@ -152,7 +154,7 @@
               type="text"
               class="form-control"
               id="city"
-              v-model="formData.city[item]"
+              v-model="formData.city[index]"
             />
           </label>
           <label for="street" class="form-label">
@@ -161,7 +163,7 @@
               type="text"
               class="form-control"
               id="street"
-              v-model="formData.street[item]"
+              v-model="formData.street[index]"
             />
           </label>
           <label for="flatNo" class="form-label">
@@ -170,12 +172,13 @@
               type="text"
               class="form-control"
               id="flatNo"
-              v-model="formData.flatNo[item]"
+              v-model="formData.flatNo[index]"
             />
           </label>
         </div>
         <div class="toggle__field__buttons">
           <button
+            v-if="index === 0"
             class="toggle__field__button"
             @click.prevent="addFormField('address')"
           >
@@ -183,9 +186,9 @@
             <img src="./assets/add.png" width="20" />
           </button>
           <button
-            v-if="addressCount > 1"
+            v-if="addressCount > 1 && index !== 0"
             class="toggle__field__button"
-            @click.prevent="removeFormField('address', item)"
+            @click.prevent="removeFormField('address', index)"
           >
             ازاله محل إقامة
             <img src="./assets/remove.png" width="20" />
@@ -206,7 +209,7 @@
               v-if="item > 1"
               width="20"
               style="cursor: pointer"
-              @click="removeFormField('phone', item)"
+              @click="removeFormField('phone', index)"
             />
           </h2>
           <div
@@ -230,11 +233,14 @@
               aria-label="phone"
               name="phone"
               style="margin-left: -30px"
-              v-model="formData.phone[item]"
+              v-model="formData.phone[index]"
             />
           </div>
         </div>
       </div>
+      <button class="form__submit__button" @click.prevent="submitFormData">
+        ارسال البيانات
+      </button>
     </form>
   </div>
 </template>
@@ -299,25 +305,50 @@ export default {
           return;
       }
     },
-    removeFormField(value, item) {
+    removeFormField(value, index) {
       switch (value) {
         case "address":
-          console.log(value, item);
-          this.formData.country[item] = null;
-          this.formData.city[item] = null;
-          this.formData.street[item] = null;
-          this.formData.flatNo[item] = null;
+          this.formData.country.splice(index, index);
+          this.formData.city.splice(index, index);
+          this.formData.street.splice(index, index);
+          this.formData.flatNo.splice(index, index);
           this.addressCount =
             this.addressCount > 1 ? this.addressCount - 1 : this.addressCount;
           break;
         case "phone":
-          this.formData.phone[item] = null;
+          this.formData.phone.splice(index, index);
           this.phoneCount =
             this.phoneCount > 1 ? this.phoneCount - 1 : this.phoneCount;
           break;
         default:
           return;
       }
+    },
+    submitFormData() {
+      let addresses = [];
+      if (this.addressCount > 1) {
+        for (let i = 0; i < this.addressCount; i++) {
+          addresses.push({
+            country: this.formData.country[i],
+            city: this.formData.city[i],
+            street: this.formData.street[i],
+            flatNumber: this.formData.flatNo[i],
+          });
+        }
+      }
+      const data = {
+        firstName: this.formData.firstName,
+        lastName: this.formData.lastName,
+        email: this.formData.email,
+        password: this.formData.password,
+        id: this.formData.idNumber,
+        birthDate: this.formData.birthDate,
+        imgUrl: this.img,
+        gender: this.formData.gender,
+        address: addresses,
+        phone: this.formData.phone,
+      };
+      console.log(data);
     },
   },
 };
