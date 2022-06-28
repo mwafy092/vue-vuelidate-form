@@ -207,7 +207,9 @@
             class="input-group mb-3"
             style="flex-direction: row-reverse; align-items: center"
           >
-            <span class="input-group-text" id="basic-addon1">02+</span>
+            <span class="input-group-text" id="basic-addon1"
+              >{{ phoneCode ? phoneCode : "20" }}+</span
+            >
             <img
               src="./assets/square-add.png"
               width="25"
@@ -242,7 +244,16 @@ export default {
       img: "",
       addressCount: 1,
       phoneCount: 1,
+      phoneCode: "",
     };
+  },
+  mounted() {
+    fetch(
+      "https://api.geoapify.com/v1/ipinfo?&apiKey=c124d10b78274af6832bc497eaf2027a"
+    )
+      .then((response) => response.json())
+      .then((result) => (this.phoneCode = result?.country?.phone_code))
+      .catch((error) => console.log("error", error));
   },
   methods: {
     changeAvatar(event) {
