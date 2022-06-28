@@ -9,74 +9,75 @@
         البيانات الاساسيه
       </h2>
       <div class="form__data__chunk">
-        <label for="exampleInputEmail1" class="form-label">
+        <label for="firstName" class="form-label">
           <span class="form__label">الاسم الاول</span>
           <input
-            type="email"
+            type="text"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="firstName"
+            v-model="formData.firstName"
           />
         </label>
-        <label for="exampleInputEmail1" class="form-label">
+        <label for="lastName" class="form-label">
           <span class="form__label">الاسم الاخير</span>
 
           <input
-            type="email"
+            type="text"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="lastName"
+            v-model="formData.lastName"
           />
         </label>
       </div>
       <div class="form__data__chunk">
-        <label for="exampleInputEmail1" class="form-label">
+        <label for="email" class="form-label">
           <span class="form__label">البريد الالكتروني</span>
           <input
             type="email"
             class="form-control"
-            id="exampleInputEmail1"
+            id="email"
             aria-describedby="emailHelp"
+            v-model="formData.email"
           />
         </label>
-        <label for="exampleInputEmail1" class="form-label">
+        <label for="password" class="form-label">
           <span class="form__label">الرقم السري</span>
 
           <input
-            type="email"
+            type="password"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="password"
+            v-model="formData.password"
           />
         </label>
-        <label for="exampleInputEmail1" class="form-label">
+        <label for="passwordConfirm" class="form-label">
           <span class="form__label">تاكيد الرقم السري</span>
 
           <input
-            type="email"
+            type="passwordConfirm"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="password"
+            v-model="formData.passwordConfirm"
           />
         </label>
       </div>
       <div class="form__data__chunk">
-        <label for="exampleInputEmail1" class="form-label">
+        <label for="idNumber" class="form-label">
           <span class="form__label"> الرقم القومي</span>
           <input
-            type="email"
+            type="number"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="idNumber"
+            v-model="formData.idNumber"
           />
         </label>
-        <label for="exampleInputEmail1" class="form-label">
+        <label for="birthDate" class="form-label">
           <span class="form__label">تاريخ الميلاد</span>
           <input
             type="date"
             class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="birthDate"
+            v-model="formData.birthDate"
           />
         </label>
       </div>
@@ -86,20 +87,21 @@
           <input
             class="form-check-input"
             type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
+            name="gender"
+            id="gender1"
+            v-model="formData.gender"
           />
-          <label class="form-check-label" for="flexRadioDefault1"> ذكر </label>
+          <label class="form-check-label" for="gender1"> ذكر </label>
         </div>
         <div class="form-check">
           <input
             class="form-check-input"
             type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-            checked
+            name="gender"
+            id="gender2"
+            v-model="formData.gender"
           />
-          <label class="form-check-label" for="flexRadioDefault2"> انثي </label>
+          <label class="form-check-label" for="gender2"> انثي </label>
         </div>
       </div>
       <div class="form__data__chunk__image">
@@ -135,60 +137,60 @@
         </h2>
         <h2 class="form__data__chunk__title" v-else>محل إقامة اضافي</h2>
         <div class="form__data__chunk">
-          <label for="exampleInputEmail1" class="form-label">
+          <label for="country" class="form-label">
             <span class="form__label">الدوله</span>
             <input
               type="text"
               class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
+              id="country"
+              v-model="formData.country[item]"
             />
           </label>
-          <label for="exampleInputEmail1" class="form-label">
+          <label for="city" class="form-label">
             <span class="form__label">المدينه</span>
             <input
               type="text"
               class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
+              id="city"
+              v-model="formData.city[item]"
             />
           </label>
-          <label for="exampleInputEmail1" class="form-label">
+          <label for="street" class="form-label">
             <span class="form__label">اسم الشارع</span>
             <input
               type="text"
               class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
+              id="street"
+              v-model="formData.street[item]"
             />
           </label>
-          <label for="exampleInputEmail1" class="form-label">
+          <label for="flatNo" class="form-label">
             <span class="form__label">رقم الشقه</span>
             <input
               type="text"
               class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
+              id="flatNo"
+              v-model="formData.flatNo[item]"
             />
           </label>
         </div>
-      </div>
-      <div class="toggle__field__buttons">
-        <button
-          class="toggle__field__button"
-          @click.prevent="addFormField('address')"
-        >
-          اضافه محل إقامة جديد
-          <img src="./assets/add.png" width="20" />
-        </button>
-        <button
-          v-if="addressCount > 1"
-          class="toggle__field__button"
-          @click.prevent="removeFormField('address')"
-        >
-          ازاله محل إقامة
-          <img src="./assets/remove.png" width="20" />
-        </button>
+        <div class="toggle__field__buttons">
+          <button
+            class="toggle__field__button"
+            @click.prevent="addFormField('address')"
+          >
+            اضافه محل إقامة جديد
+            <img src="./assets/add.png" width="20" />
+          </button>
+          <button
+            v-if="addressCount > 1"
+            class="toggle__field__button"
+            @click.prevent="removeFormField('address', item)"
+          >
+            ازاله محل إقامة
+            <img src="./assets/remove.png" width="20" />
+          </button>
+        </div>
       </div>
 
       <div
@@ -204,7 +206,7 @@
               v-if="item > 1"
               width="20"
               style="cursor: pointer"
-              @click="removeFormField('phone')"
+              @click="removeFormField('phone', item)"
             />
           </h2>
           <div
@@ -225,9 +227,10 @@
               type="text"
               class="form-control"
               placeholder="0101000xxx"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
+              aria-label="phone"
+              name="phone"
               style="margin-left: -30px"
+              v-model="formData.phone[item]"
             />
           </div>
         </div>
@@ -249,6 +252,22 @@ export default {
       addressCount: 1,
       phoneCount: 1,
       phoneCode: "",
+      formData: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        idNumber: "",
+        birthDate: "",
+        passwordConfirm: "",
+        gender: "",
+        profile: "",
+        country: [],
+        city: [],
+        street: [],
+        flatNo: [],
+        phone: [],
+      },
     };
   },
   mounted() {
@@ -259,6 +278,7 @@ export default {
       .then((result) => (this.phoneCode = result?.country?.phone_code))
       .catch((error) => console.log("error", error));
   },
+
   methods: {
     changeAvatar(event) {
       this.loading = true;
@@ -279,13 +299,19 @@ export default {
           return;
       }
     },
-    removeFormField(value) {
+    removeFormField(value, item) {
       switch (value) {
         case "address":
+          console.log(value, item);
+          this.formData.country[item] = null;
+          this.formData.city[item] = null;
+          this.formData.street[item] = null;
+          this.formData.flatNo[item] = null;
           this.addressCount =
             this.addressCount > 1 ? this.addressCount - 1 : this.addressCount;
           break;
         case "phone":
+          this.formData.phone[item] = null;
           this.phoneCount =
             this.phoneCount > 1 ? this.phoneCount - 1 : this.phoneCount;
           break;
