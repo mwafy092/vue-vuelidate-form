@@ -5,6 +5,9 @@
       <p class="form__header__text">جميع البيانات المطلوبة الزامية</p>
     </div>
     <form>
+      <h2 class="form__data__chunk__title form__title--main">
+        البيانات الاساسيه
+      </h2>
       <div class="form__data__chunk">
         <label for="exampleInputEmail1" class="form-label">
           <span class="form__label">الاسم الاول</span>
@@ -76,6 +79,28 @@
             aria-describedby="emailHelp"
           />
         </label>
+      </div>
+      <div class="form__data__radio__chunk">
+        <h2>النوع :</h2>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault1"
+          />
+          <label class="form-check-label" for="flexRadioDefault1"> ذكر </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2"
+            checked
+          />
+          <label class="form-check-label" for="flexRadioDefault2"> انثي </label>
+        </div>
       </div>
       <div class="form__data__chunk__image">
         <input id="uploadFile" disabled="disabled" class="form__image__hide" />
@@ -165,28 +190,7 @@
           <img src="./assets/remove.png" width="20" />
         </button>
       </div>
-      <div class="form__data__radio__chunk">
-        <h2>النوع :</h2>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-          />
-          <label class="form-check-label" for="flexRadioDefault1"> ذكر </label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault2"> انثي </label>
-        </div>
-      </div>
+
       <div
         class="form__dynamic__phone"
         v-for="(item, index) in phoneCount"
