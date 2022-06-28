@@ -1,0 +1,132 @@
+$light-gray: #aaa;
+$background: #f8f8f8;
+$light: #fff;
+$darkBlue: #253240;
+$shadow-sm: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+  rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+// styles
+body {
+  background-color: $background !important;
+}
+.container {
+  .form__header {
+    border-bottom: 1px solid $light-gray;
+    padding: 10px;
+    width: 300px;
+    .form__header__title {
+      font-size: 30px;
+    }
+    .form__header__text {
+      font-size: 20px;
+      color: $light-gray;
+    }
+  }
+  form {
+    background-color: $light;
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: $shadow-sm;
+    max-width: 1100px;
+    margin: 20px auto;
+    .form__data__chunk__title {
+      font-size: 25px;
+      color: $light-gray;
+    }
+    .form__data__chunk {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 40px 0;
+      label {
+        width: 400px;
+        .form__label {
+          color: $light-gray;
+        }
+      }
+      .form__dynamic__address {
+        margin: 40px 0;
+
+        .form__separator {
+          border-bottom: 1px solid $light-gray;
+        }
+      }
+    }
+    .form__data__radio__chunk {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      color: $light-gray;
+      gap: 10px;
+      padding: 10px;
+      margin: 40px 0;
+      h2 {
+        font-size: 22px;
+      }
+    }
+    .toggle__field__buttons {
+      display: flex;
+      .toggle__field__button {
+        display: block;
+        width: 100%;
+        border: 1px solid $light-gray;
+        background-color: transparent;
+        margin: 10px 0;
+        height: 40px;
+        color: $darkBlue;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          margin-right: 10px;
+        }
+      }
+    }
+    .image__placeholder {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .form__data__chunk__image {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .form__image__hide {
+        display: none;
+      }
+      .fileUpload {
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+        cursor: pointer;
+        border: 1px dashed $light-gray;
+        padding: 5px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        span {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+      }
+    }
+  }
+}
