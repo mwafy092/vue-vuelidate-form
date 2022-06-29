@@ -257,7 +257,7 @@
           <label for="flatNo" class="form-label">
             <span class="form__label">رقم الشقه</span>
             <input
-              type="text"
+              type="number"
               :class="[
                 'form-control',
                 v$.flatNo.required.$invalid && 'form__error--active',
@@ -323,7 +323,7 @@
             />
 
             <input
-              type="text"
+              type="number"
               :class="[
                 'form-control',
                 (v$.phone.required.$invalid || this.phone[0].length !== 11) &&
