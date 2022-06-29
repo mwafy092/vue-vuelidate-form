@@ -339,6 +339,12 @@
           <p class="form__error__message" v-if="v$.phone.required.$invalid">
             هذه البيانات مطلوبه
           </p>
+          <p
+            class="form__error__message"
+            v-if="phone[index]?.length !== 11 && phone[index]?.length > 0"
+          >
+            يرجي ادخال الرقم الصحيح
+          </p>
           <p class="form__error__message" v-if="mainPhoneRequired">
             يرجي ادخال رقم المحمول الاساسي قبل اضافه رقم اخر
           </p>
@@ -443,8 +449,7 @@ export default {
     },
     phone: {
       required,
-      minLength: minLength(11),
-      maxLength: maxLength(11),
+      minLength: minLength(1),
     },
   },
   mounted() {
@@ -518,15 +523,13 @@ export default {
     submitFormData() {
       this.isSubmit = true;
       let addresses = [];
-      if (this.addressCount > 1) {
-        for (let i = 0; i < this.addressCount; i++) {
-          addresses.push({
-            country: this.country[i],
-            city: this.city[i],
-            street: this.street[i],
-            flatNumber: this.flatNo[i],
-          });
-        }
+      for (let i = 0; i < this.addressCount; i++) {
+        addresses.push({
+          country: this.country[i],
+          city: this.city[i],
+          street: this.street[i],
+          flatNumber: this.flatNo[i],
+        });
       }
       const data = {
         firstName: this.firstName,
@@ -540,22 +543,12 @@ export default {
         address: addresses,
         phone: this.phone,
       };
+      console.log(this.v$.$silentErrors);
 
-      if (
-        !this.firstName ||
-        !this.lastName ||
-        !this.email ||
-        !this.password ||
-        !this.id ||
-        !this.birthDate ||
-        !this.img ||
-        !this.gender ||
-        addresses.length !== 0 ||
-        !this.phone
-      ) {
-        console.log("error");
+      if (this.v$.$silentErrors.length === 0) {
+        console.log(data);
       } else {
-        console.log("not error");
+        console.error("Error due to invalid fields");
       }
     },
   },
