@@ -8,6 +8,7 @@ $shadow-sm: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
 // styles
 body {
   background-color: $background !important;
+  position: relative;
 }
 .form__title--main {
   border-bottom: 1px solid $light-border;
@@ -34,6 +35,10 @@ body {
     box-shadow: $shadow-sm;
     max-width: 1100px;
     margin: 20px auto;
+    .form__error--active {
+      border: 2px solid red;
+    }
+
     .form__data__chunk__title {
       font-size: 25px;
       color: $light-gray;
@@ -61,7 +66,7 @@ body {
       width: 100%;
       display: flex;
       justify-content: flex-start;
-      align-items: center;
+      align-items: flex-start;
       color: $light-gray;
       gap: 10px;
       padding: 10px;
@@ -145,6 +150,10 @@ body {
         color: $darkBlue;
         transition: all 0.3s ease-in-out;
       }
+    }
+    .form__error__message {
+      font-size: 13px;
+      color: red;
     }
   }
 }
