@@ -170,6 +170,10 @@ body {
       color: $darkBlue;
       font-size: 22px;
       border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
       &:hover {
         background-color: $light-gray;
         color: $darkBlue;
@@ -201,6 +205,40 @@ body {
       .form__dynamic__phone {
         margin-top: 40px;
       }
+    }
+  }
+}
+
+.success__msg {
+  z-index: 99999999;
+  margin: 20px auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $darkBlue;
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: $light;
+  gap: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    button {
+      border: none;
+      background-color: $darkBlue;
+      color: $light;
+      border-radius: 5px;
+      padding: 2px 5px;
+      cursor: pointer;
     }
   }
 }

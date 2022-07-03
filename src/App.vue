@@ -1,4 +1,11 @@
 <template>
+  <div class="success__msg" v-if="showMsg">
+    <span> تم ارسال البيانات بنجاح </span>
+    <div class="buttons">
+      <button @click="() => setShowMsg(false, false)">غلق</button>
+      <button @click="() => setShowMsg(false, true)">اضافه بيانات اخري</button>
+    </div>
+  </div>
   <div class="container">
     <div class="form__header">
       <h1 class="form__header__title">استماره التسجيل</h1>
@@ -134,6 +141,7 @@
         <label for="idNumber" class="form-label">
           <span class="form__label"> الرقم القومي</span>
           <input
+            :disabled="disableField"
             type="number"
             :class="[
               'form-control',
@@ -172,6 +180,7 @@
             @click="removeDate"
           />
           <input
+            :disabled="disableField"
             type="date"
             :class="[
               'form-control',
@@ -432,6 +441,7 @@
       </div>
       <button class="form__submit__button" @click.prevent="submitFormData">
         ارسال البيانات
+        <LoaderSpinner :loading="submitLoading" size="20px" />
       </button>
     </form>
   </div>
@@ -458,6 +468,8 @@ export default {
   },
   data() {
     return {
+      submitLoading: false,
+      showMsg: false,
       isSubmit: false,
       loading: false,
       img: "",
@@ -483,6 +495,7 @@ export default {
       submitStatus: false,
       submitAction: false,
       targetBlur: "",
+      disableField: false,
     };
   },
   validations: {
@@ -545,9 +558,33 @@ export default {
   },
 
   methods: {
+    setShowMsg(value, clear) {
+      this.showMsg = value;
+      if (clear) {
+        this.disableField = false;
+        this.submitAction = false;
+        this.img = "";
+        this.addressCount = 1;
+        this.phoneCount = 1;
+        this.phoneCode = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.email = "";
+        this.password = "";
+        this.idNumber = "";
+        this.birthDate = "";
+        this.passwordConfirm = "";
+        this.gender = "";
+        this.profile = "";
+        this.country = [];
+        this.city = [];
+        this.street = [];
+        this.flatNo = [];
+        this.phone = [];
+      }
+    },
     getField(e) {
       this.targetBlur = e.target.id;
-      console.log(e);
     },
     removeAvatar() {
       this.img = "";
@@ -640,8 +677,14 @@ export default {
       this.submitAction = true;
 
       if (this.v$.$silentErrors.length === 0) {
-        console.log(data);
-        this.submitStatus = true;
+        this.submitLoading = true;
+        this.disableField = true;
+        setTimeout(() => {
+          this.submitLoading = false;
+          console.log(data);
+          this.setShowMsg(true, false);
+          this.submitStatus = true;
+        }, 1500);
       } else {
         console.error("Error due to invalid fields");
       }
