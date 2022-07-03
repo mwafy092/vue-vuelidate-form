@@ -272,19 +272,18 @@
           <label for="country" class="form-label">
             <span class="form__label">الدوله</span>
             <input
+              @click="getField"
+              :id="index"
               type="text"
               :class="[
                 'form-control',
-                v$.country.required.$invalid &&
-                  submitAction &&
-                  'form__error--active',
+                !country[index] && submitAction && 'form__error--active',
               ]"
-              id="country"
               v-model="country[index]"
             />
             <p
               class="form__error__message"
-              v-if="v$.country.required.$invalid && submitAction"
+              v-if="!country[index] && submitAction"
             >
               هذه البيانات مطلوبه
             </p>
@@ -295,17 +294,12 @@
               type="text"
               :class="[
                 'form-control',
-                v$.city.required.$invalid &&
-                  submitAction &&
-                  'form__error--active',
+                !city[index] && submitAction && 'form__error--active',
               ]"
               id="city"
               v-model="city[index]"
             />
-            <p
-              class="form__error__message"
-              v-if="v$.city.required.$invalid && submitAction"
-            >
+            <p class="form__error__message" v-if="!city[index] && submitAction">
               هذه البيانات مطلوبه
             </p>
           </label>
@@ -315,16 +309,14 @@
               type="text"
               :class="[
                 'form-control',
-                v$.street.required.$invalid &&
-                  submitAction &&
-                  'form__error--active',
+                !street[index] && submitAction && 'form__error--active',
               ]"
               id="street"
               v-model="street[index]"
             />
             <p
               class="form__error__message"
-              v-if="v$.street.required.$invalid && submitAction"
+              v-if="!street[index] && submitAction"
             >
               هذه البيانات مطلوبه
             </p>
@@ -335,16 +327,14 @@
               type="number"
               :class="[
                 'form-control',
-                v$.flatNo.required.$invalid &&
-                  submitAction &&
-                  'form__error--active',
+                !flatNo[index] && submitAction && 'form__error--active',
               ]"
               id="flatNo"
               v-model="flatNo[index]"
             />
             <p
               class="form__error__message"
-              v-if="v$.flatNo.required.$invalid && submitAction"
+              v-if="!flatNo[index] && submitAction"
             >
               هذه البيانات مطلوبه
             </p>
