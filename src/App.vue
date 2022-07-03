@@ -3,7 +3,8 @@
     <span> تم ارسال البيانات بنجاح </span>
     <div class="buttons">
       <button @click="() => setShowMsg(false, false)">غلق</button>
-      <button @click="() => setShowMsg(false, true)">اضافه بيانات اخري</button>
+      <button @click="() => setShowMsg(false, 'new')">اضافه بيانات اخري</button>
+      <button @click="() => setShowMsg(false, 'edit')">تعديل البيانات</button>
     </div>
   </div>
   <div class="container">
@@ -178,6 +179,7 @@
             width="20"
             class="date__delete__btn"
             @click="removeDate"
+            v-if="birthDate"
           />
           <input
             :disabled="disableField"
@@ -558,9 +560,9 @@ export default {
   },
 
   methods: {
-    setShowMsg(value, clear) {
+    setShowMsg(value, action) {
       this.showMsg = value;
-      if (clear) {
+      if (action === "new") {
         this.disableField = false;
         this.submitAction = false;
         this.img = "";
@@ -581,6 +583,9 @@ export default {
         this.street = [];
         this.flatNo = [];
         this.phone = [];
+      }
+      if (action === "edit") {
+        this.disableField = true;
       }
     },
     getField(e) {
