@@ -267,7 +267,6 @@
             يرجي ادخال محل الاقامه الاساسي اولا
           </p>
         </h2>
-
         <h2 class="form__data__chunk__title" v-else>محل إقامة اضافي</h2>
         <div class="form__data__chunk">
           <label for="country" class="form-label">
@@ -583,7 +582,8 @@ export default {
           break;
         case "phone":
           if (
-            (this.phone.length === 0 || this.phone[0]?.length !== 11) &&
+            (this.phone.length === 0 ||
+              this.phone[0]?.toString()?.length !== 11) &&
             this.phoneCode !== 1
           ) {
             this.mainPhoneRequired = true;
