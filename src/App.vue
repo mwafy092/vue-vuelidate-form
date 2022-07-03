@@ -402,10 +402,12 @@
               @click="addFormField('phone')"
             />
             <input
+              :id="index"
+              @click="getField"
               type="number"
               :class="[
                 'form-control',
-                this.phone[0]?.toString()?.length !== 11 &&
+                this.phone[index]?.toString()?.length !== 11 &&
                   submitAction &&
                   'form__error--active',
               ]"
@@ -418,15 +420,17 @@
           </div>
           <p
             class="form__error__message"
-            v-if="v$.phone.required.$invalid && submitAction"
+            v-if="!phone[index]?.toString().length && submitAction"
           >
             هذه البيانات مطلوبه
           </p>
+
           <p
             class="form__error__message"
             v-if="
-              phone[0]?.toString().length !== 11 &&
-              phone[0]?.toString().length > 0
+              phone[index]?.toString().length !== 11 &&
+              phone[index]?.toString().length > 0 &&
+              Number(targetBlur) === index
             "
           >
             يرجي ادخال الرقم الصحيح
@@ -488,6 +492,7 @@ export default {
       mainPhoneRequired: false,
       submitStatus: false,
       submitAction: false,
+      targetBlur: "",
     };
   },
   validations: {
@@ -550,6 +555,10 @@ export default {
   },
 
   methods: {
+    getField(e) {
+      this.targetBlur = e.target.id;
+      console.log(e);
+    },
     removeAvatar() {
       this.img = "";
     },
