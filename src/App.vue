@@ -164,6 +164,13 @@
         </label>
         <label for="birthDate" class="form-label">
           <span class="form__label">تاريخ الميلاد</span>
+          <img
+            src="./assets/close.png"
+            alt=""
+            width="20"
+            class="date__delete__btn"
+            @click="removeDate"
+          />
           <input
             type="date"
             :class="[
@@ -175,6 +182,7 @@
             id="birthDate"
             v-model="birthDate"
           />
+
           <p
             class="form__error__message"
             v-if="v$.birthDate.required.$invalid && submitAction"
@@ -545,6 +553,9 @@ export default {
   methods: {
     removeAvatar() {
       this.img = "";
+    },
+    removeDate() {
+      this.birthDate = "";
     },
     changeAvatar(event) {
       this.loading = true;

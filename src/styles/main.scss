@@ -119,6 +119,11 @@ body {
       margin-left: -85px;
       cursor: pointer;
     }
+    .date__delete__btn {
+      margin-right: 5px;
+      margin-bottom: 4px;
+      cursor: pointer;
+    }
     .form__data__chunk__image {
       display: flex;
       flex-direction: column;
@@ -127,6 +132,7 @@ body {
       .form__image__hide {
         display: none;
       }
+
       .fileUpload {
         position: relative;
         overflow: hidden;
