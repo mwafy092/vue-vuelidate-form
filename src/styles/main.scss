@@ -111,6 +111,14 @@ body {
       border-radius: 50%;
       object-fit: cover;
     }
+    .image__delete__btn {
+      border-radius: 50%;
+      padding: 2px;
+      margin-bottom: -25px;
+      z-index: 9999;
+      margin-left: -85px;
+      cursor: pointer;
+    }
     .form__data__chunk__image {
       display: flex;
       flex-direction: column;

@@ -16,12 +16,17 @@
             type="text"
             :class="[
               'form-control',
-              v$.firstName.required.$invalid && 'form__error--active',
+              v$.firstName.required.$invalid &&
+                submitAction &&
+                'form__error--active',
             ]"
             id="firstName"
             v-model="firstName"
           />
-          <p class="form__error__message" v-if="v$.firstName.required.$invalid">
+          <p
+            class="form__error__message"
+            v-if="v$.firstName.required.$invalid && submitAction"
+          >
             هذه البيانات مطلوبه
           </p>
         </label>
@@ -33,12 +38,17 @@
             type="text"
             :class="[
               'form-control',
-              v$.lastName.required.$invalid && 'form__error--active',
+              v$.lastName.required.$invalid &&
+                submitAction &&
+                'form__error--active',
             ]"
             id="lastName"
             v-model="lastName"
           />
-          <p class="form__error__message" v-if="v$.lastName.required.$invalid">
+          <p
+            class="form__error__message"
+            v-if="v$.lastName.required.$invalid && submitAction"
+          >
             هذه البيانات مطلوبه
           </p>
         </label>
@@ -50,17 +60,24 @@
             type="email"
             :class="[
               'form-control',
-              (v$.email.email.$invalid || v$.email.required.$invalid) &&
+              (v$.email.email.$invalid ||
+                (v$.email.required.$invalid && submitAction)) &&
                 'form__error--active',
             ]"
             id="email"
             aria-describedby="emailHelp"
             v-model="email"
           />
-          <p class="form__error__message" v-if="v$.email.required.$invalid">
+          <p
+            class="form__error__message"
+            v-if="v$.email.required.$invalid && submitAction"
+          >
             هذه البيانات مطلوبه
           </p>
-          <p class="form__error__message" v-if="v$.email.email.$invalid">
+          <p
+            class="form__error__message"
+            v-if="v$.email.email.$invalid && submitAction"
+          >
             يرجي ادخال البريد الالكتروني بشكل صحيح
           </p>
         </label>
@@ -72,16 +89,22 @@
             :class="[
               'form-control',
               (v$.password.minLength.$invalid ||
-                v$.password.required.$invalid) &&
+                (v$.password.required.$invalid && submitAction)) &&
                 'form__error--active',
             ]"
             id="password"
             v-model="password"
           />
-          <p class="form__error__message" v-if="v$.password.required.$invalid">
+          <p
+            class="form__error__message"
+            v-if="v$.password.required.$invalid && submitAction"
+          >
             هذه البيانات مطلوبه
           </p>
-          <p class="form__error__message" v-if="v$.password.minLength.$invalid">
+          <p
+            class="form__error__message"
+            v-if="v$.password.minLength.$invalid && submitAction"
+          >
             يرجي ادخال علي الاقل ٨ حروف او ارقام او رموز
           </p>
         </label>
@@ -92,14 +115,17 @@
             :class="[
               'form-control',
               (password !== passwordConfirm ||
-                v$.passwordConfirm.required.$invalid) &&
+                (v$.passwordConfirm.required.$invalid && submitAction)) &&
                 'form__error--active',
             ]"
             id="passwordConfirm"
             v-model="passwordConfirm"
           />
 
-          <p class="form__error__message" v-if="password !== passwordConfirm">
+          <p
+            class="form__error__message"
+            v-if="password !== passwordConfirm && submitAction"
+          >
             يرجي التاكد من ادخال نفس الرقم السري
           </p>
         </label>
@@ -114,18 +140,23 @@
               (v$.idNumber.required.$invalid ||
                 v$.idNumber.minLength.$invalid ||
                 v$.idNumber.maxLength.$invalid) &&
+                submitAction &&
                 'form__error--active',
             ]"
             id="idNumber"
             v-model="idNumber"
           />
-          <p class="form__error__message" v-if="v$.idNumber.required.$invalid">
+          <p
+            class="form__error__message"
+            v-if="v$.idNumber.required.$invalid && submitAction"
+          >
             هذه البيانات مطلوبه
           </p>
           <p
             class="form__error__message"
             v-if="
-              v$.idNumber.minLength.$invalid || v$.idNumber.maxLength.$invalid
+              v$.idNumber.minLength.$invalid ||
+              (v$.idNumber.maxLength.$invalid && submitAction)
             "
           >
             الرقم القومي مكون فقط من ١٤ رقم
@@ -137,11 +168,19 @@
             type="date"
             :class="[
               'form-control',
-              v$.birthDate.required.$invalid && 'form__error--active',
+              v$.birthDate.required.$invalid &&
+                submitAction &&
+                'form__error--active',
             ]"
             id="birthDate"
             v-model="birthDate"
           />
+          <p
+            class="form__error__message"
+            v-if="v$.birthDate.required.$invalid && submitAction"
+          >
+            هذه البيانات مطلوبه
+          </p>
         </label>
       </div>
       <div class="form__data__radio__chunk">
@@ -168,12 +207,23 @@
           />
           <label class="form-check-label" for="gender2"> انثي </label>
         </div>
-        <p class="form__error__message" v-if="v$.gender.required.$invalid">
+        <p
+          class="form__error__message"
+          v-if="v$.gender.required.$invalid && submitAction"
+        >
           هذه البيانات مطلوبه
         </p>
       </div>
       <div class="form__data__chunk__image">
         <input id="uploadFile" disabled="disabled" class="form__image__hide" />
+        <img
+          v-if="img"
+          src="./assets/close.png"
+          alt=""
+          width="30"
+          class="image__delete__btn"
+          @click="removeAvatar"
+        />
         <img class="image__placeholder" src="./assets/avatar.png" v-if="!img" />
 
         <img class="image__placeholder" :src="img" v-else />
@@ -194,6 +244,9 @@
             size="15px"
           />
         </div>
+        <p class="form__error__message" v-if="submitAction && !img">
+          هذه البيانات مطلوبه
+        </p>
       </div>
       <div
         class="form__dynamic__address"
@@ -215,12 +268,17 @@
               type="text"
               :class="[
                 'form-control',
-                v$.country.required.$invalid && 'form__error--active',
+                v$.country.required.$invalid &&
+                  submitAction &&
+                  'form__error--active',
               ]"
               id="country"
               v-model="country[index]"
             />
-            <p class="form__error__message" v-if="v$.country.required.$invalid">
+            <p
+              class="form__error__message"
+              v-if="v$.country.required.$invalid && submitAction"
+            >
               هذه البيانات مطلوبه
             </p>
           </label>
@@ -230,12 +288,17 @@
               type="text"
               :class="[
                 'form-control',
-                v$.city.required.$invalid && 'form__error--active',
+                v$.city.required.$invalid &&
+                  submitAction &&
+                  'form__error--active',
               ]"
               id="city"
               v-model="city[index]"
             />
-            <p class="form__error__message" v-if="v$.city.required.$invalid">
+            <p
+              class="form__error__message"
+              v-if="v$.city.required.$invalid && submitAction"
+            >
               هذه البيانات مطلوبه
             </p>
           </label>
@@ -245,12 +308,17 @@
               type="text"
               :class="[
                 'form-control',
-                v$.street.required.$invalid && 'form__error--active',
+                v$.street.required.$invalid &&
+                  submitAction &&
+                  'form__error--active',
               ]"
               id="street"
               v-model="street[index]"
             />
-            <p class="form__error__message" v-if="v$.street.required.$invalid">
+            <p
+              class="form__error__message"
+              v-if="v$.street.required.$invalid && submitAction"
+            >
               هذه البيانات مطلوبه
             </p>
           </label>
@@ -260,12 +328,17 @@
               type="number"
               :class="[
                 'form-control',
-                v$.flatNo.required.$invalid && 'form__error--active',
+                v$.flatNo.required.$invalid &&
+                  submitAction &&
+                  'form__error--active',
               ]"
               id="flatNo"
               v-model="flatNo[index]"
             />
-            <p class="form__error__message" v-if="v$.flatNo.required.$invalid">
+            <p
+              class="form__error__message"
+              v-if="v$.flatNo.required.$invalid && submitAction"
+            >
               هذه البيانات مطلوبه
             </p>
           </label>
@@ -321,12 +394,12 @@
               style="z-index: 999; cursor: pointer"
               @click="addFormField('phone')"
             />
-
             <input
               type="number"
               :class="[
                 'form-control',
-                (v$.phone.required.$invalid || this.phone[0].length !== 11) &&
+                this.phone[0]?.toString()?.length !== 11 &&
+                  submitAction &&
                   'form__error--active',
               ]"
               placeholder="0101000xxx"
@@ -336,12 +409,18 @@
               v-model="phone[index]"
             />
           </div>
-          <p class="form__error__message" v-if="v$.phone.required.$invalid">
+          <p
+            class="form__error__message"
+            v-if="v$.phone.required.$invalid && submitAction"
+          >
             هذه البيانات مطلوبه
           </p>
           <p
             class="form__error__message"
-            v-if="phone[index]?.length !== 11 && phone[index]?.length > 0"
+            v-if="
+              phone[0]?.toString().length !== 11 &&
+              phone[0]?.toString().length > 0
+            "
           >
             يرجي ادخال الرقم الصحيح
           </p>
@@ -400,6 +479,8 @@ export default {
       phone: [],
       mainAddressRequired: false,
       mainPhoneRequired: false,
+      submitStatus: false,
+      submitAction: false,
     };
   },
   validations: {
@@ -462,6 +543,9 @@ export default {
   },
 
   methods: {
+    removeAvatar() {
+      this.img = "";
+    },
     changeAvatar(event) {
       this.loading = true;
       setTimeout(() => {
@@ -543,10 +627,11 @@ export default {
         address: addresses,
         phone: this.phone,
       };
-      console.log(this.v$.$silentErrors);
+      this.submitAction = true;
 
       if (this.v$.$silentErrors.length === 0) {
         console.log(data);
+        this.submitStatus = true;
       } else {
         console.error("Error due to invalid fields");
       }
