@@ -452,6 +452,8 @@
 <script>
 import LoaderSpinner from "vue-spinner/src/ClipLoader.vue";
 import useVuelidate from "@vuelidate/core";
+import { phoneValidator } from "./utils/validators";
+
 import {
   required,
   email,
@@ -681,7 +683,8 @@ export default {
       };
       this.submitAction = true;
 
-      if (this.v$.$silentErrors.length === 0) {
+      let phoneValid = !phoneValidator(this.phone, 11, true)?.invalid;
+      if (this.v$.$silentErrors.length === 0 && phoneValid) {
         this.submitLoading = true;
         this.disableField = true;
         setTimeout(() => {
